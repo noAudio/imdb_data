@@ -49,10 +49,10 @@ sorted_by_gross["Gross Earnings"].head(10)
 
 # import pyplot from matplotlib to visualize
 # the data
-# plt.show(sorted_by_gross['Gross Earnings'].head(10).plot(kind="barh"))
+plt.show(sorted_by_gross['Gross Earnings'].head(10).plot(kind="barh"))
 
 # plost a histogram to visualize the distribution
-# plt.show(movies['IMDB Score'].plot(kind='hist'))
+plt.show(movies['IMDB Score'].plot(kind='hist'))
 
 # use pandas describe() to get statistical
 # analysis of the numeric data in the frame
@@ -67,3 +67,13 @@ movies['Net Earnings'] = movies['Gross Earnings'] - movies['Budget']
 sorted_movies = movies[['Net Earnings']].sort_values(
     ['Net Earnings'], ascending=[False])
 plt.show(sorted_movies.head(10)['Net Earnings'].plot.barh())
+
+# writing the data frame to a new excel file
+# create an ExcelWriter object and use it to
+# write to the excel file
+writer = pd.ExcelWriter('output.xlsx', engine='xlsxwriter')
+movies.to_excel(writer, index=False, sheet_name='report')
+workbook = writer.bookworksheet = writer.sheets['report']
+
+
+writer.save()
